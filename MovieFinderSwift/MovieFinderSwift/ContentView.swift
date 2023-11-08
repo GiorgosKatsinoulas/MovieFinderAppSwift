@@ -25,10 +25,15 @@ struct ContentView: View {
 
         .padding()
         Divider()
-        List(movieViewModel.movies, id: \.id) { movie in
-            Text(movie.title)
-            Text(movie.popularity.description)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 350) {
+                ForEach(movieViewModel.movies) { movie in
+                    MovieContainer(title: movie.title, posterPath: movie.poster_path ?? "url").padding()
+                }
+                Spacer()
+            }
         }
+        .padding()
         .alert(isPresented: $isShowingErrorAlert) {
             Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }

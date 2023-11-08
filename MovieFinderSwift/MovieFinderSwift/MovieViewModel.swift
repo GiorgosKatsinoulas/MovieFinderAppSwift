@@ -22,7 +22,7 @@ class MovieViewModel: ObservableObject {
     @Published var movies: [Movie] = []
 
     func fetchMovies(searchText: String) async throws {
-        movies.removeAll()
+        DispatchQueue.main.async { self.movies.removeAll() }
         guard let url = URL(string: "https://api.themoviedb.org/3/search/movie?query=\(searchText)&api_key=48fda3b5d60d7071dec2f012f8b3f8ea") else {
             throw NetworkError.invalidURL
         }
@@ -34,10 +34,12 @@ class MovieViewModel: ObservableObject {
 
         do {
             let (data, _) = try await URLSession.shared.data(from: request.url!)
-            print("JSON Data:", String(data: data, encoding: .utf8) ?? "test")
+//            print("JSON Data:", String(data: data, encoding: .utf8) ?? "test")
             let decodedResult = try JSONDecoder().decode(MovieResult.self, from: data)
-            print("values :", decodedResult)
-            movies.append(contentsOf: decodedResult.results)
+//            print("values :", decodedResult)
+            DispatchQueue.main.async {
+                self.movies.append(contentsOf: decodedResult.results)
+            }
         } catch {
             print(error.localizedDescription)
             throw NetworkError.requestFailed

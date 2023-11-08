@@ -13,6 +13,7 @@
 		EF62730E2AE6822A004AE35C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF62730D2AE6822A004AE35C /* Preview Assets.xcassets */; };
 		EF6273152AE68258004AE35C /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6273142AE68258004AE35C /* MovieModel.swift */; };
 		EF6273172AE68273004AE35C /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6273162AE68273004AE35C /* MovieViewModel.swift */; };
+		EF6273192AE68B53004AE35C /* MovieContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6273182AE68B53004AE35C /* MovieContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		EF62730D2AE6822A004AE35C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EF6273142AE68258004AE35C /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		EF6273162AE68273004AE35C /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
+		EF6273182AE68B53004AE35C /* MovieContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			children = (
 				EF6273062AE68228004AE35C /* MovieFinderSwiftApp.swift */,
 				EF6273082AE68228004AE35C /* ContentView.swift */,
+				EF6273182AE68B53004AE35C /* MovieContainer.swift */,
 				EF6273142AE68258004AE35C /* MovieModel.swift */,
 				EF6273162AE68273004AE35C /* MovieViewModel.swift */,
 				EF62730A2AE6822A004AE35C /* Assets.xcassets */,
@@ -146,6 +149,7 @@
 				EF6273152AE68258004AE35C /* MovieModel.swift in Sources */,
 				EF6273092AE68228004AE35C /* ContentView.swift in Sources */,
 				EF6273072AE68228004AE35C /* MovieFinderSwiftApp.swift in Sources */,
+				EF6273192AE68B53004AE35C /* MovieContainer.swift in Sources */,
 				EF6273172AE68273004AE35C /* MovieViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
