@@ -8,34 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var searchText = ""
+    @State private var searchText = "Iron man"
+    @State private var path = NavigationPath()
     @ObservedObject private var movieViewModel = MovieViewModel()
     @State private var isShowingErrorAlert = false
     @State private var alertMessage: String = ""
 
     var body: some View {
-        VStack {
-            TextField("Search", text: $searchText)
-                .padding()
+        NavigationStack(path: $path) {
+            VStack {
+                TextField("Search", text: $searchText)
+                    .padding()
 
-            Button("Search") {
-                findMovie(searchText)
-            }
-        }
-
-        .padding()
-        Divider()
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 350) {
-                ForEach(movieViewModel.movies) { movie in
-                    MovieContainer(title: movie.title, posterPath: movie.poster_path ?? "url").padding()
+                Button("Search") {
+                    findMovie(searchText)
                 }
-                Spacer()
             }
-        }
-        .padding()
-        .alert(isPresented: $isShowingErrorAlert) {
-            Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            .padding()
+            Divider()
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 350) {
+                    ForEach(movieViewModel.movies) { movie in
+                        MovieContainer(title: movie.title, posterPath: movie.poster_path ?? "url", movieId: movie.id, path: $path).padding()
+                    }
+                    Spacer() // Add Spacer to distribute remaining space
+                }
+            }
+            .padding()
+            .alert(isPresented: $isShowingErrorAlert) {
+                Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
+            Spacer()
         }
     }
 
