@@ -23,6 +23,7 @@ class MovieViewModel: ObservableObject {
     @Published var movies: [Movie] = []
 
     @Published var movieDetail: MovieDetail
+    @Published var movieVideo: MovieVideo
 
     init() {
         movies = []
@@ -44,8 +45,12 @@ class MovieViewModel: ObservableObject {
             tagline: "",
             title: "",
             video: false,
-            voteAverage: 0.0,
-            voteCount: 0
+            vote_average: 0.0,
+            vote_count: 0
+        )
+        movieVideo = MovieVideo(
+            id: 0,
+            results: []
         )
     }
 
@@ -61,17 +66,43 @@ class MovieViewModel: ObservableObject {
 
         do {
             let (data, _) = try await URLSession.shared.data(from: request.url!)
-            print("JSON on movie detail Data:", String(data: data, encoding: .utf8) ?? "test")
+//            print("JSON on movie detail Data:", String(data: data, encoding: .utf8) ?? "test")
 //            let decodedResult = try JSONDecoder().decode(MovieDetail.self, from: data)
             do {
                 let decodedResult = try JSONDecoder().decode(MovieDetail.self, from: data)
                 // Use decodedResult here
-                print("values on movie detail :", decodedResult)
+//                print("values on movie detail :", decodedResult)
 //                movieDetail = decodedResult
                 movieDetail = decodedResult
 
             } catch {
                 print("Error decoding MovieDetail:", error)
+            }
+
+        } catch {
+            print(error.localizedDescription)
+            throw NetworkError.requestFailed
+        }
+    }
+
+    func fetchMovieVideo(movieId: Int) async throws {
+        guard let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieId)/videos?language=en-US&api_key=48fda3b5d60d7071dec2f012f8b3f8ea") else {
+            throw NetworkError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        for (key, value) in headers {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+
+        do {
+            let (data, _) = try await URLSession.shared.data(from: request.url!)
+            do {
+                let decodedResult = try JSONDecoder().decode(MovieVideo.self, from: data)
+                movieVideo = decodedResult
+
+            } catch {
+                print("Error decoding video:", error)
             }
 
         } catch {

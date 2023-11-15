@@ -25,6 +25,6 @@ struct MovieDetail: Codable, Hashable {
     let tagline: String
     let title: String
     let video: Bool
-    let voteAverage: Double?
-    let voteCount: Int?
+    let vote_average: Double?
+    let vote_count: Int?
 }
